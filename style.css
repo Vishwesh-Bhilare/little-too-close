@@ -1,0 +1,101 @@
+:root {
+  --bg: #1a1423;
+  --card: #241b33;
+  --text: #e6dff1;
+  --muted: #b7a9d6;
+  --accent: #d7a9e3;
+  --soft: #9c8bc4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #2a1f3d, var(--bg));
+  font-family: "Quicksand", sans-serif;
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.2),
+    rgba(0,0,0,0.5)
+  );
+  pointer-events: none;
+}
+
+.letter {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem;
+  background: var(--card);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+section {
+  margin-bottom: 2.5rem;
+}
+
+p {
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.intro p {
+  font-style: italic;
+  color: var(--soft);
+}
+
+.highlight {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.faded {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.music p {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.closing {
+  text-align: center;
+}
+
+.date {
+  margin-top: 1.5rem;
+  color: var(--soft);
+  font-size: 0.9rem;
+}
+
+/* Floating hugs */
+.hugs span {
+  position: fixed;
+  bottom: -40px;
+  font-size: 22px;
+  opacity: 0.6;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  to {
+    transform: translateY(-120vh) scale(1.2);
+    opacity: 0;
+  }
+}
