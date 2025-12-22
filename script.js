@@ -1,4 +1,4 @@
-/* PASSWORD LOGIC */
+/* PASSWORD */
 const passwordInput = document.getElementById("password");
 const lockScreen = document.getElementById("lock-screen");
 const content = document.getElementById("content");
@@ -35,3 +35,27 @@ function createHug() {
 }
 
 setInterval(createHug, 900);
+
+/* LONG PRESS / HOLD */
+let holdTimer;
+const holdOverlay = document.getElementById("hold-overlay");
+
+function startHold() {
+  holdTimer = setTimeout(() => {
+    hugsContainer.classList.add("paused");
+    holdOverlay.style.opacity = 1;
+  }, 500); // intentional delay
+}
+
+function endHold() {
+  clearTimeout(holdTimer);
+  hugsContainer.classList.remove("paused");
+  holdOverlay.style.opacity = 0;
+}
+
+document.addEventListener("mousedown", startHold);
+document.addEventListener("touchstart", startHold);
+
+document.addEventListener("mouseup", endHold);
+document.addEventListener("mouseleave", endHold);
+document.addEventListener("touchend", endHold);
