@@ -9,80 +9,92 @@
 </head>
 <body>
 
-  <div class="overlay"></div>
+<!-- LOCK SCREEN -->
+<div id="lock-screen">
+  <div class="lock-box">
+    <p class="lock-text">i am ____locked</p>
+    <input type="password" id="password" maxlength="4" autofocus />
+    <p id="lock-error">not quite</p>
+  </div>
+</div>
 
-  <main class="letter">
-    <section class="intro">
-      <p class="soft">December feels warmer this year.</p>
-      <p class="soft">Two days. Side by side.</p>
-    </section>
+<div class="overlay"></div>
 
-    <section class="body">
-      <p>
-        Somewhere between late nights and quiet mornings,  
-        <span class="highlight">baby boy</span> learned how to care better.
-      </p>
+<main class="letter hidden" id="content">
 
-      <p>
-        And <span class="highlight">baby girl</span>—  
-        with her calm strength—  
-        made it feel safe to stay.
-      </p>
+  <section class="intro">
+    <p class="soft">December feels warmer this year.</p>
+    <p class="soft">Two days. Side by side.</p>
+  </section>
 
-      <p>
-        I’m still a <span class="highlight">puppy</span> sometimes.  
-        Learning. Trying. Showing up.
-      </p>
+  <section class="body">
+    <p>
+      Somewhere between late nights and quiet mornings,  
+      <span class="highlight">baby boy</span> learned how to care better.
+    </p>
 
-      <p>
-        <em>Love hurts but we power through.</em>  
-        Not loudly.  
-        Just… <span class="highlight">together</span>.
-      </p>
-    </section>
+    <p>
+      And <span class="highlight">baby girl</span>—  
+      with her calm strength—  
+      made it feel safe to stay.
+    </p>
 
-    <section class="imagery">
-      <p class="faded">
-        Tea cooling by the window.  
-        Simit crumbs on the table.  
-        Baklava sweetness lingering.
-      </p>
+    <p>
+      I’m still a <span class="highlight">puppy</span> sometimes.  
+      Learning. Trying. Showing up.
+    </p>
 
-      <p class="faded">
-        Istanbul evenings.  
-        The Bosphorus breathing slow.  
-        Lights reflecting—never still.
-      </p>
-    </section>
+    <p>
+      <em>Love hurts but we power through.</em>  
+      Not loudly.  
+      Just… <span class="highlight">together</span>.
+    </p>
+  </section>
 
-    <section class="music">
-      <p>
-        Some lyrics don’t need to be named.  
-        They sit between lines.  
-        Like a song we both hear differently—
-        and still understand.
-      </p>
-    </section>
+  <section class="imagery">
+    <p class="faded">
+      Tea cooling by the window.  
+      Simit crumbs on the table.  
+      Baklava sweetness lingering.
+    </p>
 
-    <section class="closing">
-      <p>
-        This is not a promise.  
-        Not a label.  
-        Just <span class="highlight">care</span>,  
-        held gently.
-      </p>
+    <p class="faded">
+      Istanbul evenings.  
+      The Bosphorus breathing slow.  
+      Lights reflecting—never still.
+    </p>
+  </section>
 
-      <p class="date">
-        25 → 26  
-        <br>
-        Growing, together.
-      </p>
-    </section>
-  </main>
+  <section class="music">
+    <p>
+      Some lyrics don’t need to be named.  
+      They sit between lines.  
+      Like a song we both hear differently—
+      and still understand.
+    </p>
+  </section>
 
-  <!-- Floating hugs -->
-  <div class="hugs"></div>
+  <section class="closing">
+    <p class="click-reveal">
+      This is not a promise.
+    </p>
 
-  <script src="script.js"></script>
+    <p id="hidden-message">
+      Just care, held gently.  
+      Always rooting for you.
+    </p>
+
+    <p class="date">
+      25 → 26  
+      <br>
+      Growing, together.
+    </p>
+  </section>
+
+</main>
+
+<div class="hugs"></div>
+
+<script src="script.js"></script>
 </body>
 </html>
