@@ -8,12 +8,42 @@ passwordInput.addEventListener("input", () => {
   if (passwordInput.value.toLowerCase() === "sher") {
     lockScreen.style.display = "none";
     content.classList.remove("hidden");
+    revealOnLoad();
   } else if (passwordInput.value.length === 4) {
     errorText.style.opacity = 1;
     setTimeout(() => errorText.style.opacity = 0, 1200);
     passwordInput.value = "";
   }
 });
+
+/* SCROLL REVEAL */
+const revealElements = document.querySelectorAll(".reveal");
+
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold: 0.15,
+    rootMargin: "0px 0px -40px 0px"
+  }
+);
+
+revealElements.forEach(el => observer.observe(el));
+
+function revealOnLoad() {
+  // reveal above-the-fold content softly
+  setTimeout(() => {
+    document.querySelectorAll(".intro .reveal").forEach(el => {
+      el.classList.add("visible");
+    });
+  }, 300);
+}
 
 /* HIDDEN MESSAGE */
 document.querySelector(".click-reveal").addEventListener("click", () => {
@@ -35,27 +65,3 @@ function createHug() {
 }
 
 setInterval(createHug, 900);
-
-/* LONG PRESS / HOLD */
-let holdTimer;
-const holdOverlay = document.getElementById("hold-overlay");
-
-function startHold() {
-  holdTimer = setTimeout(() => {
-    hugsContainer.classList.add("paused");
-    holdOverlay.style.opacity = 1;
-  }, 500); // intentional delay
-}
-
-function endHold() {
-  clearTimeout(holdTimer);
-  hugsContainer.classList.remove("paused");
-  holdOverlay.style.opacity = 0;
-}
-
-document.addEventListener("mousedown", startHold);
-document.addEventListener("touchstart", startHold);
-
-document.addEventListener("mouseup", endHold);
-document.addEventListener("mouseleave", endHold);
-document.addEventListener("touchend", endHold);
