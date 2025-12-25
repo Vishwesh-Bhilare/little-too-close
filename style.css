@@ -6,7 +6,7 @@
   --muted: #b7a9d6;
   --accent: #d7a9e3;
   --soft: #9c8bc4;
-  --care: #cbb6e9; /* softer than accent */
+  --care: #cbb6e9;
 }
 
 * {
@@ -39,7 +39,7 @@ body {
   inset: 0;
   background-image:
     repeating-radial-gradient(
-      circle at 30% 30%,
+      circle,
       rgba(255,255,255,0.04),
       rgba(255,255,255,0.04) 1px,
       transparent 1px,
@@ -122,11 +122,11 @@ p {
   font-size: 1.05rem;
 }
 
-/* SCROLL REVEAL */
+/* REVEAL SYSTEM */
 .reveal {
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 1s ease, transform 1s ease;
 }
 
 .reveal.visible {
@@ -194,6 +194,10 @@ p {
   opacity: 0.6;
   animation: floatUp linear infinite;
   z-index: 1;
+}
+
+.paused span {
+  animation-play-state: paused;
 }
 
 @keyframes floatUp {
