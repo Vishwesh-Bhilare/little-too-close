@@ -111,6 +111,26 @@ crumbleBtn.addEventListener("click", () => {
   }, 1600);
 });
 
+/* LOVE FILL TOUCH INTERACTION */
+const loveFill = document.getElementById("love-fill");
+
+function warmLove() {
+  loveFill.classList.add("warm");
+}
+
+function coolLove() {
+  loveFill.classList.remove("warm");
+}
+
+["mousedown", "touchstart"].forEach(evt => {
+  loveFill.addEventListener(evt, warmLove);
+});
+
+["mouseup", "mouseleave", "touchend", "touchcancel"].forEach(evt => {
+  loveFill.addEventListener(evt, coolLove);
+});
+
+
 /* HUGS */
 const hugSymbols = ["🫂", "🤍", "💗"];
 
