@@ -6,6 +6,7 @@
   --muted: #b7a9d6;
   --accent: #d7a9e3;
   --soft: #9c8bc4;
+  --care: #cbb6e9; /* softer than accent */
 }
 
 * {
@@ -32,7 +33,24 @@ body {
   }
 }
 
-/* LOCK */
+/* PAPER GRAIN */
+.grain {
+  position: fixed;
+  inset: 0;
+  background-image:
+    repeating-radial-gradient(
+      circle at 30% 30%,
+      rgba(255,255,255,0.04),
+      rgba(255,255,255,0.04) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* LOCK SCREEN */
 #lock-screen {
   position: fixed;
   inset: 0;
@@ -72,27 +90,6 @@ body {
   color: var(--soft);
 }
 
-/* HOLD OVERLAY */
-#hold-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  z-index: 5;
-}
-
-#hold-overlay p {
-  font-family: "Playfair Display", serif;
-  font-size: 2rem;
-  color: var(--accent);
-  letter-spacing: 0.15em;
-}
-
 /* CONTENT */
 .hidden {
   display: none;
@@ -102,6 +99,7 @@ body {
   position: fixed;
   inset: 0;
   pointer-events: none;
+  z-index: 3;
 }
 
 .letter {
@@ -111,6 +109,8 @@ body {
   background: var(--card);
   border-radius: 20px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  position: relative;
+  z-index: 4;
 }
 
 section {
@@ -119,8 +119,22 @@ section {
 
 p {
   line-height: 1.8;
+  font-size: 1.05rem;
 }
 
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* TEXT STYLES */
 .soft {
   font-style: italic;
   color: var(--soft);
@@ -128,6 +142,10 @@ p {
 
 .highlight {
   color: var(--accent);
+}
+
+.care-word {
+  color: var(--care);
 }
 
 .faded {
@@ -140,6 +158,16 @@ p {
   font-style: italic;
 }
 
+/* BABY GIRL SPACING */
+.baby-girl-line {
+  line-height: 2.05;
+}
+
+.baby-girl {
+  letter-spacing: 0.03em;
+}
+
+/* CLOSING */
 .click-reveal {
   cursor: pointer;
 }
@@ -147,7 +175,7 @@ p {
 #hidden-message {
   display: none;
   margin-top: 1rem;
-  color: var(--accent);
+  color: var(--care);
   font-style: italic;
 }
 
@@ -158,17 +186,14 @@ p {
   text-align: center;
 }
 
-/* HUGS */
+/* FLOATING HUGS */
 .hugs span {
   position: fixed;
   bottom: -40px;
   font-size: 22px;
   opacity: 0.6;
   animation: floatUp linear infinite;
-}
-
-.paused span {
-  animation-play-state: paused;
+  z-index: 1;
 }
 
 @keyframes floatUp {
