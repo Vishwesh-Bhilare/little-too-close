@@ -8,7 +8,7 @@ passwordInput.addEventListener("input", () => {
   if (passwordInput.value.toLowerCase() === "sher") {
     lockScreen.style.display = "none";
     content.classList.remove("hidden");
-    revealOnLoad();
+    startTimedReveal();
   } else if (passwordInput.value.length === 4) {
     errorText.style.opacity = 1;
     setTimeout(() => errorText.style.opacity = 0, 1200);
@@ -16,34 +16,43 @@ passwordInput.addEventListener("input", () => {
   }
 });
 
-/* SCROLL REVEAL */
-const revealElements = document.querySelectorAll(".reveal");
+/* TIMED LINE-BY-LINE REVEAL */
+const revealElements = Array.from(document.querySelectorAll(".reveal"));
+let revealIndex = 0;
+let revealInterval = null;
+let paused = false;
 
-const observer = new IntersectionObserver(
-  entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  {
-    threshold: 0.15,
-    rootMargin: "0px 0px -40px 0px"
-  }
-);
-
-revealElements.forEach(el => observer.observe(el));
-
-function revealOnLoad() {
-  // reveal above-the-fold content softly
-  setTimeout(() => {
-    document.querySelectorAll(".intro .reveal").forEach(el => {
-      el.classList.add("visible");
-    });
-  }, 300);
+function startTimedReveal() {
+  revealInterval = setInterval(() => {
+    if (paused) return;
+    if (revealIndex >= revealElements.length) {
+      clearInterval(revealInterval);
+      return;
+    }
+    revealElements[revealIndex].classList.add("visible");
+    revealIndex++;
+  }, 2000);
 }
+
+/* LONG PRESS = PAUSE */
+const hugsContainer = document.querySelector(".hugs");
+
+function pauseEverything() {
+  paused = true;
+  hugsContainer.classList.add("paused");
+}
+
+function resumeEverything() {
+  paused = false;
+  hugsContainer.classList.remove("paused");
+}
+
+document.addEventListener("mousedown", pauseEverything);
+document.addEventListener("touchstart", pauseEverything);
+
+document.addEventListener("mouseup", resumeEverything);
+document.addEventListener("mouseleave", resumeEverything);
+document.addEventListener("touchend", resumeEverything);
 
 /* HIDDEN MESSAGE */
 document.querySelector(".click-reveal").addEventListener("click", () => {
@@ -51,7 +60,6 @@ document.querySelector(".click-reveal").addEventListener("click", () => {
 });
 
 /* FLOATING HUGS */
-const hugsContainer = document.querySelector(".hugs");
 const hugSymbols = ["🫂", "🤍", "💗"];
 
 function createHug() {
