@@ -259,6 +259,50 @@ body.crumbling .letter {
 }
 
 /* =====================
+   LOVE FILL ANIMATION
+===================== */
+
+#love-fill {
+  transition: background 0.6s ease;
+}
+
+#love-fill.warm {
+  background: #1a1024; /* slightly warmer */
+}
+
+#love-fill p {
+  animation: drift 24s linear infinite;
+  transition: color 0.6s ease, opacity 0.6s ease;
+}
+
+/* brighten text on touch */
+#love-fill.warm p {
+  color: #eadcff;
+}
+
+/* upward drift + fade */
+@keyframes drift {
+  0% {
+    transform: translateY(30%);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.9;
+  }
+
+  70% {
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translateY(-40%);
+    opacity: 0;
+  }
+}
+
+
+/* =====================
    HUGS
 ===================== */
 .hugs span {
