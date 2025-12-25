@@ -20,8 +20,8 @@ passwordInput.addEventListener("input", () => {
 
 /* REVEAL */
 const revealElements = Array.from(document.querySelectorAll(".reveal"));
-let revealIndex = 1; // first line handled separately
-let revealInterval;
+let revealIndex = 1; // first line shown instantly
+let revealInterval = null;
 let paused = false;
 
 function revealImmediately() {
@@ -31,33 +31,41 @@ function revealImmediately() {
 function startTimedReveal() {
   revealInterval = setInterval(() => {
     if (paused) return;
+
     if (revealIndex >= revealElements.length) {
       clearInterval(revealInterval);
       showCrumbleButton();
+      stopStillnessTimer();
       return;
     }
+
     revealElements[revealIndex].classList.add("visible");
     revealIndex++;
   }, 2000);
 }
 
 /* STILLNESS */
-let stillnessTimer;
-const stillness = document.createElement("div");
-stillness.id = "stillness";
-stillness.textContent = "you don’t have to rush.";
-document.body.appendChild(stillness);
+const stillness = document.getElementById("stillness");
+let stillnessTimer = null;
 
 function startStillnessTimer() {
+  resetStillness();
+}
+
+function resetStillness() {
+  if (document.body.classList.contains("crumbling")) return;
+
+  stillness.style.opacity = 0;
   clearTimeout(stillnessTimer);
+
   stillnessTimer = setTimeout(() => {
     stillness.style.opacity = 1;
   }, 7000);
 }
 
-function resetStillness() {
+function stopStillnessTimer() {
+  clearTimeout(stillnessTimer);
   stillness.style.opacity = 0;
-  startStillnessTimer();
 }
 
 ["scroll", "mousedown", "touchstart", "keydown"].forEach(evt => {
@@ -94,34 +102,26 @@ function showCrumbleButton() {
 }
 
 crumbleBtn.addEventListener("click", () => {
+  stopStillnessTimer();
+  paused = true;
   document.body.classList.add("crumbling");
-  setTimeout(showLoveFill, 1600);
-});
 
-function showLoveFill() {
-  const love = document.createElement("div");
-  love.id = "love-fill";
-  love.innerHTML = `
-    <p>
-      i love you :)<br>
-      i love you :)<br>
-      i love you :)<br>
-      i love you :)<br>
-      i love you :)
-    </p>
-  `;
-  document.body.appendChild(love);
-  love.style.display = "flex";
-}
+  setTimeout(() => {
+    document.getElementById("love-fill").style.display = "flex";
+  }, 1600);
+});
 
 /* HUGS */
 const hugSymbols = ["🫂", "🤍", "💗"];
+
 setInterval(() => {
   if (paused) return;
+
   const hug = document.createElement("span");
   hug.textContent = hugSymbols[Math.floor(Math.random() * hugSymbols.length)];
   hug.style.left = Math.random() * 100 + "vw";
   hug.style.animationDuration = 8 + Math.random() * 6 + "s";
   hugsContainer.appendChild(hug);
+
   setTimeout(() => hug.remove(), 14000);
 }, 900);
